@@ -3,7 +3,7 @@ package sudoku;
 /**
  * This is Description
  *
- * @auther boring
+ * @author boring
  * @date 2018/04/06
  */
 public class SolveSudoku {
@@ -37,7 +37,7 @@ public class SolveSudoku {
 
                 try {
                     this.print();
-                    Thread.sleep(100L);
+                    Thread.sleep(50L);
                 } catch (InterruptedException var4) {
                     var4.printStackTrace();
                 }

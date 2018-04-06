@@ -3,7 +3,7 @@ package sudoku;
 /**
  * This is Description
  *
- * @auther boring
+ * @author boring
  * @date 2018/04/06
  */
 import java.util.Random;
