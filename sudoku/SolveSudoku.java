@@ -16,118 +16,101 @@ public class SolveSudoku {
         return this.sudoku;
     }
 
-    public void setSudoku(Sudoku var1) {
-        this.sudoku = var1;
+    public void setSudoku(Sudoku sudoku) {
+        this.sudoku = sudoku;
     }
 
-    public SolveSudoku(Sudoku var1) {
-        this.sudoku = var1;
-        this.sudokuArray = var1.getSudokuArray();
+    public SolveSudoku(Sudoku sudoku) {
+        this.sudoku = sudoku;
+        this.sudokuArray = sudoku.getSudokuArray();
         this.solve();
     }
 
     public boolean solve() {
-        if (!this.haveNext()) {
+        if (!haveNext()) {
             return true;
         } else {
-            Point var1 = this.next();
+            Point point = next();
 
-            for(int var2 = 1; var2 < this.LEN + 1; ++var2) {
-                this.set(var1, var2);
+            for(int i = 1; i < LEN + 1; ++i) {
+                set(point, i);
 
                 try {
-                    this.print();
+                    PrintSudoku.print(sudoku);
                     Thread.sleep(50L);
-                } catch (InterruptedException var4) {
-                    var4.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
-                if (this.check(var1) && this.solve()) {
+                if (check(point) && solve()) {
                     return true;
                 }
 
-                this.clear(var1);
+                clear(point);
             }
 
             return false;
         }
     }
 
-    private void set(Point var1, int var2) {
-        this.sudokuArray[var1.getA()][var1.getB()] = var2;
+    private void set(Point point, int value) {
+        sudokuArray[point.getA()][point.getB()] = value;
     }
 
-    private void clear(Point var1) {
-        this.sudokuArray[var1.getA()][var1.getB()] = 0;
+    private void clear(Point point) {
+        sudokuArray[point.getA()][point.getB()] = 0;
     }
 
     public boolean haveNext() {
-        return this.next() != null;
+        return next() != null;
     }
 
     private Point next() {
-        for(int var1 = 0; var1 < this.LEN; ++var1) {
-            for(int var2 = 0; var2 < this.LEN; ++var2) {
-                if (this.sudokuArray[var1][var2] == 0) {
-                    return new Point(var1, var2);
+        for(int i = 0; i < LEN; ++i) {
+            for(int j = 0; j < LEN; ++j) {
+                if (sudokuArray[i][j] == 0) {
+                    return new Point(i, j);
                 }
             }
         }
-
         return null;
     }
 
-    public boolean check(Point var1) {
-        return this.checkRowsAndColumns(var1) && this.checkPalace(var1);
+    public boolean check(Point point) {
+        return checkRowsAndColumns(point) && checkPalace(point);
     }
 
-    private boolean checkRowsAndColumns(Point var1) {
-        int var2 = this.sudokuArray[var1.getA()][var1.getB()];
+    private boolean checkRowsAndColumns(Point point) {
+        int value = sudokuArray[point.getA()][point.getB()];
 
-        int var3;
-        for(var3 = 0; var3 < this.LEN; ++var3) {
-            if (var2 == this.sudokuArray[var1.getA()][var3] && var3 != var1.getB()) {
+        for(int i = 0; i < LEN; ++i) {
+            if (value == sudokuArray[point.getA()][i] && i != point.getB()) {
                 return false;
             }
         }
 
-        for(var3 = 0; var3 < this.LEN; ++var3) {
-            if (var2 == this.sudokuArray[var3][var1.getB()] && var3 != var1.getA()) {
+        for(int j = 0; j < LEN; ++j) {
+            if (value == sudokuArray[j][point.getB()] && j != point.getA()) {
                 return false;
             }
         }
-
         return true;
     }
 
-    private boolean checkPalace(Point var1) {
-        int var2 = this.sudokuArray[var1.getA()][var1.getB()];
-        Point var3 = new Point(var1.getA() / 3 * 3, var1.getB() / 3 * 3);
+    private boolean checkPalace(Point point) {
+        int value = sudokuArray[point.getA()][point.getB()];
+        Point root = new Point(point.getA() / 3 * 3, point.getB() / 3 * 3);
 
-        for(int var4 = 0; var4 < this.PALACE; ++var4) {
-            for(int var5 = 0; var5 < this.PALACE; ++var5) {
-                if (var2 == this.sudokuArray[var3.getA() + var4][var3.getB() + var5] && var3.getA() + var4 != var1.getA() && var3.getB() + var5 != var1.getB()) {
+        for(int i = 0; i < PALACE; ++i) {
+            for(int j = 0; j < PALACE; ++j) {
+                if (value == sudokuArray[root.getA() + i][root.getB() + j] &&
+                        root.getA() + i != point.getA() &&
+                        root.getB() + j != point.getB()) {
                     return false;
                 }
             }
         }
 
         return true;
-    }
-
-    private void print() {
-        for(int var1 = 0; var1 < this.LEN; ++var1) {
-            for(int var2 = 0; var2 < this.LEN; ++var2) {
-                if (this.sudokuArray[var1][var2] == 0) {
-                    System.out.print("  ");
-                } else {
-                    System.out.print(this.sudokuArray[var1][var2] + " ");
-                }
-            }
-
-            System.out.print("\n");
-        }
-
-        System.out.print("\n");
     }
 }

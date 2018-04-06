@@ -23,94 +23,86 @@ public class CreateSudoku {
         this.random = new Random();
     }
 
-    public void changeElements(int var1, int var2) {
-        for(int var3 = 0; var3 < this.LEN; ++var3) {
-            for(int var4 = 0; var4 < this.LEN; ++var4) {
-                this.sudokuArray[var3][var4] = this.sudokuArray[var3][var4] == var1 ? var2 : (this.sudokuArray[var3][var4] == var2 ? var1 : this.sudokuArray[var3][var4]);
+    public void changeElements(int a, int b) {
+        for(int i = 0; i < LEN; ++i) {
+            for(int j = 0; j < LEN; ++j) {
+                sudokuArray[i][j] = sudokuArray[i][j] == a ? b :
+                        (sudokuArray[i][j] == b ? a : sudokuArray[i][j]);
             }
         }
-
     }
 
-    public void changeRows(int var1, int var2) {
-        int[] var3 = this.sudokuArray[var1];
-        this.sudokuArray[var1] = this.sudokuArray[var2];
-        this.sudokuArray[var2] = var3;
+    public void changeRows(int first, int second) {
+        int[] temp = sudokuArray[first];
+        sudokuArray[first] = sudokuArray[second];
+        sudokuArray[second] = temp;
     }
 
-    public void changeColumns(int var1, int var2) {
-        for(int var4 = 0; var4 < this.LEN; ++var4) {
-            int var3 = this.sudokuArray[var4][var1];
-            this.sudokuArray[var4][var1] = this.sudokuArray[var4][var2];
-            this.sudokuArray[var4][var2] = var3;
+    public void changeColumns(int first, int second) {
+        for(int i = 0; i < LEN; ++i) {
+            int temp = sudokuArray[i][first];
+            sudokuArray[i][first] = sudokuArray[i][second];
+            sudokuArray[i][second] = temp;
         }
-
     }
 
-    public void changeThreeRows(int var1, int var2) {
-        for(int var3 = 0; var3 < this.PALACE; ++var3) {
-            this.changeRows(var1 + var3, var2 + var3);
+    public void changeThreeRows(int first, int second) {
+        for(int i = 0; i < PALACE; ++i) {
+            changeRows(first + i, second + i);
         }
-
     }
 
-    public void changeThreeColumns(int var1, int var2) {
-        for(int var3 = 0; var3 < this.PALACE; ++var3) {
-            this.changeColumns(var1 + var3, var2 + var3);
+    public void changeThreeColumns(int first, int second) {
+        for(int i = 0; i < PALACE; ++i) {
+            changeColumns(first + i, second + i);
         }
-
     }
 
     private void setAB1() {
-        this.a = this.random.nextInt(this.LEN) + 1;
-        this.b = this.random.nextInt(this.LEN) + 1;
+        a = random.nextInt(LEN) + 1;
+        b = random.nextInt(LEN) + 1;
     }
 
-    private void setAB2(int var1) {
-        this.a = var1 + this.random.nextInt(this.PALACE);
-        this.b = var1 + this.random.nextInt(this.PALACE);
+    private void setAB2(int palace) {
+        a = palace + random.nextInt(PALACE);
+        b = palace + random.nextInt(PALACE);
     }
 
     private void setAB3() {
-        this.a = this.random.nextInt(this.PALACE) * this.PALACE;
-        this.b = this.random.nextInt(this.PALACE) * this.PALACE;
+        a = random.nextInt(PALACE) * PALACE;
+        b = random.nextInt(PALACE) * PALACE;
     }
 
     public Sudoku changeNumbers() {
-        int var1;
-        for(var1 = 0; var1 < this.TIME; ++var1) {
-            this.setAB1();
-            if (this.a != this.b) {
-                this.changeElements(this.a, this.b);
+        for(int i = 0; i < TIME; ++i) {
+            setAB1();
+            if (a != b) {
+                changeElements(a, b);
             } else {
-                --var1;
+                --i;
             }
         }
 
-        for(var1 = 0; var1 < this.TIME; ++var1) {
-            int var2 = this.random.nextInt(this.PALACE) * this.PALACE;
-            this.setAB2(var2);
-            if (this.a != this.b) {
-                this.changeRows(this.a, this.b);
+        for(int j = 0; j < TIME; ++j) {
+            int palace = random.nextInt(PALACE) * PALACE;
+            setAB2(palace);
+            if (a != b) {
+                changeRows(a, b);
             }
-
-            this.setAB2(var2);
-            if (this.a != this.b) {
-                this.changeColumns(this.a, this.b);
+            setAB2(palace);
+            if (a != b) {
+                changeColumns(a, b);
             }
-
-            this.setAB3();
-            if (this.a != this.b) {
-                this.changeThreeRows(this.a, this.b);
+            setAB3();
+            if (a != b) {
+                changeThreeRows(a, b);
             }
-
-            this.setAB3();
-            if (this.a != this.b) {
-                this.changeThreeColumns(this.a, this.b);
+            setAB3();
+            if (a != b) {
+                changeThreeColumns(a, b);
             }
         }
-
-        this.sudoku.setSudokuArray(this.sudokuArray);
-        return this.sudoku;
+        sudoku.setSudokuArray(sudokuArray);
+        return sudoku;
     }
 }

@@ -10,27 +10,27 @@ public class Point {
     private int a;
     private int b;
 
-    public Point(int var1, int var2) {
-        this.a = var1;
-        this.b = var2;
+    public Point(int a, int b) {
+        this.a = a;
+        this.b = b;
     }
 
     public Point() {
     }
 
     public int getA() {
-        return this.a;
+        return a;
     }
 
-    public void setA(int var1) {
-        this.a = var1;
+    public void setA(int a) {
+        this.a = a;
     }
 
     public int getB() {
-        return this.b;
+        return b;
     }
 
-    public void setB(int var1) {
-        this.b = var1;
+    public void setB(int b) {
+        this.b = b;
     }
 }

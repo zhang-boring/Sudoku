@@ -20,113 +20,137 @@ public class CreateLevel {
     private final int Medium = 2;
     private final int Hard = 3;
 
-    public CreateLevel(int var1) {
-        this.level = var1;
+    public CreateLevel(int level) {
+        this.level = level;
         this.count = new int[9];
         this.sudoku = (new CreateSudoku()).changeNumbers();
         this.sudokuArray = this.sudoku.getSudokuArray();
         this.random = new Random();
-        this.showArray = new int[][]{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        this.showArray = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0}
+        };
     }
 
+    /**
+     * 简单难度
+     * 已知40-43个数
+     * a*2+(8-a)*2 + b*2+(10-b)*2 + c
+     */
     private void easyLevel() {
-        int var1 = this.random.nextInt(4) + 3;
-        this.count[0] = this.count[7] = var1;
-        this.count[2] = this.count[6] = 8 - var1;
-        int var2 = this.random.nextInt(4) + 4;
-        this.count[1] = this.count[4] = var2;
-        this.count[5] = this.count[8] = 10 - var2;
-        int var3 = this.random.nextInt(4) + 4;
-        this.count[3] = var3;
+        int a = random.nextInt(4) + 3;
+        count[0] = count[7] = a;
+        count[2] = count[6] = 8 - a;
+        int b = random.nextInt(4) + 4;
+        count[1] = count[4] = b;
+        count[5] = count[8] = 10 - b;
+        int c = random.nextInt(4) + 4;
+        count[3] = c;
 
-        for(int var4 = 0; var4 < 9; ++var4) {
-            this.setShowNumber(var4, this.count[var4]);
+        for(int i = 0; i < LEN; ++i) {
+            setShowNumber(i, count[i]);
         }
 
     }
 
+    /**
+     * 中等难度
+     * 已知31-34个数
+     * a*2+(7-a)*2 + b*2+(8-b)*2 + c
+     */
     private void mediumLevel() {
-        int var1 = this.random.nextInt(3) + 3;
-        this.count[0] = this.count[5] = var1;
-        this.count[1] = this.count[4] = 7 - this.count[0];
-        int var2 = this.random.nextInt(5) + 2;
-        this.count[2] = this.count[6] = var2;
-        this.count[3] = this.count[8] = 8 - this.count[2];
-        int var3 = this.random.nextInt(4) + 1;
-        this.count[7] = var3;
+        int a = random.nextInt(3) + 3;
+        count[0] = count[5] = a;
+        count[1] = count[4] = 7 - count[0];
+        int b = random.nextInt(5) + 2;
+        count[2] = count[6] = b;
+        count[3] = count[8] = 8 - count[2];
+        int c = random.nextInt(4) + 1;
+        count[7] = c;
 
-        for(int var4 = 0; var4 < 9; ++var4) {
-            this.setShowNumber(var4, this.count[var4]);
+        for(int i = 0; i < LEN; ++i) {
+            setShowNumber(i, count[i]);
         }
 
     }
 
+    /**
+     * 困难难度
+     * 已知25-28个数
+     * a*2+(6-a)*2 + b*2+(5-b)*2 + c
+     */
     private void hardLevel() {
-        int var1 = this.random.nextInt(2) + 2;
-        this.count[0] = this.count[8] = var1;
-        this.count[1] = this.count[7] = 6 - this.count[0];
-        int var2 = this.random.nextInt(4) + 1;
-        this.count[2] = this.count[6] = var2;
-        this.count[3] = this.count[5] = 5 - this.count[2];
-        int var3 = this.random.nextInt(4) + 3;
-        this.count[4] = var3;
+        int a = this.random.nextInt(2) + 2;
+        count[0] = count[8] = a;
+        count[1] = count[7] = 6 - count[0];
+        int b = random.nextInt(4) + 1;
+        count[2] = count[6] = b;
+        count[3] = count[5] = 5 - count[2];
+        int c = random.nextInt(4) + 3;
+        count[4] = c;
 
-        for(int var4 = 0; var4 < 9; ++var4) {
-            this.setShowNumber(var4, this.count[var4]);
+        for(int i = 0; i < LEN; ++i) {
+            setShowNumber(i, count[i]);
         }
 
     }
 
     public Sudoku generateGame() {
-        switch(this.level) {
-            case 1:
-                this.easyLevel();
+        switch(level) {
+            case EASY:
+                easyLevel();
                 break;
-            case 2:
-                this.mediumLevel();
+            case Medium:
+                mediumLevel();
                 break;
-            case 3:
-                this.hardLevel();
+            case Hard:
+                hardLevel();
                 break;
             default:
-                this.easyLevel();
+                easyLevel();
         }
 
-        for(int var1 = 0; var1 < 9; ++var1) {
-            for(int var2 = 0; var2 < 9; ++var2) {
-                if (this.showArray[var1][var2] == 0) {
-                    this.sudokuArray[var1][var2] = 0;
+        for(int i = 0; i < LEN; ++i) {
+            for(int j = 0; j < LEN; ++j) {
+                if (showArray[i][j] == 0) {
+                    sudokuArray[i][j] = 0;
                 }
             }
         }
 
-        this.sudoku.setSudokuArray(this.sudokuArray);
-        return this.sudoku;
+        sudoku.setSudokuArray(sudokuArray);
+        return sudoku;
     }
 
-    private void setShowNumber(int var1, int var2) {
-        int var3 = 0;
-        int var4 = this.random.nextInt(9 - var3) + 1;
-        int var5 = 0;
-        int var6 = 0;
+    private void setShowNumber(int row, int num) {
+        int show = 0;
+        int a = random.nextInt(9 - show) + 1;
+        int temp = 0;
+        int i = 0;
 
-        while(var6 < 9) {
-            if (this.showArray[var1][var6] == 0) {
-                ++var5;
+        while(i < LEN) {
+            if (showArray[row][i] == 0) {
+                ++temp;
             }
-
-            if (var5 == var4) {
-                this.showArray[var1][var6] = 1;
-                ++var3;
-                if (var3 == var2) {
+            if (temp == a) {
+                showArray[row][i] = 1;
+                ++show;
+                if (show == num) {
                     break;
+                } else {
+                    i = 0;
+                    a = random.nextInt(8 - show) + 1;
+                    temp = 0;
                 }
-
-                var6 = 0;
-                var4 = this.random.nextInt(8 - var3) + 1;
-                var5 = 0;
             } else {
-                ++var6;
+                ++i;
             }
         }
 
