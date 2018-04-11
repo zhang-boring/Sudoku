@@ -1,7 +1,7 @@
 package sudoku;
 
 /**
- * This is Description
+ * 根据种子数独创建新的最终数独板
  *
  * @author boring
  * @date 2018/04/06
@@ -9,12 +9,23 @@ package sudoku;
 import java.util.Random;
 
 public class CreateSudoku {
+    /**
+     * 数独对象
+     * 数独板
+     * 创建随机数
+     */
     private Sudoku sudoku = new Sudoku();
     private int[][] sudokuArray;
     private Random random;
+    /**
+     * 数组大小
+     * 九宫格大小
+     * 循环打款次数
+     */
     private int LEN = 9;
     private int PALACE = 3;
     private int TIME = 10;
+
     private int a;
     private int b;
 
@@ -23,7 +34,13 @@ public class CreateSudoku {
         this.random = new Random();
     }
 
-    public void changeElements(int a, int b) {
+    /**
+     * 更换任意两数
+     *
+     * @param a
+     * @param b
+     */
+    private void changeElements(int a, int b) {
         for(int i = 0; i < LEN; ++i) {
             for(int j = 0; j < LEN; ++j) {
                 sudokuArray[i][j] = sudokuArray[i][j] == a ? b :
@@ -32,13 +49,25 @@ public class CreateSudoku {
         }
     }
 
-    public void changeRows(int first, int second) {
+    /**
+     * 调换任意两行（九宫内）
+     *
+     * @param first
+     * @param second
+     */
+    private void changeRows(int first, int second) {
         int[] temp = sudokuArray[first];
         sudokuArray[first] = sudokuArray[second];
         sudokuArray[second] = temp;
     }
 
-    public void changeColumns(int first, int second) {
+    /**
+     * 调换任意两列（九宫内）
+     *
+     * @param first
+     * @param second
+     */
+    private void changeColumns(int first, int second) {
         for(int i = 0; i < LEN; ++i) {
             int temp = sudokuArray[i][first];
             sudokuArray[i][first] = sudokuArray[i][second];
@@ -46,33 +75,63 @@ public class CreateSudoku {
         }
     }
 
-    public void changeThreeRows(int first, int second) {
+    /**
+     * 三三列调换（九宫互换）
+     *
+     * @param first
+     * @param second
+     */
+    private void changeThreeRows(int first, int second) {
         for(int i = 0; i < PALACE; ++i) {
             changeRows(first + i, second + i);
         }
     }
 
-    public void changeThreeColumns(int first, int second) {
+    /**
+     * 三三行调换（九宫互换）
+     *
+     * @param first
+     * @param second
+     */
+    private void changeThreeColumns(int first, int second) {
         for(int i = 0; i < PALACE; ++i) {
             changeColumns(first + i, second + i);
         }
     }
 
+    /**
+     * 在[1,9]随机取值，数独板内两数互换
+     */
     private void setAB1() {
         a = random.nextInt(LEN) + 1;
         b = random.nextInt(LEN) + 1;
     }
 
+    /**
+     * 根据九宫的起始行（列），随机取九宫内两行（列）
+     *
+     * @param palace
+     */
     private void setAB2(int palace) {
         a = palace + random.nextInt(PALACE);
         b = palace + random.nextInt(PALACE);
     }
 
+    /**
+     * 随机取数独板内 九宫起始行（列）
+     */
     private void setAB3() {
         a = random.nextInt(PALACE) * PALACE;
         b = random.nextInt(PALACE) * PALACE;
     }
 
+    /**
+     * 创建数独
+     *    1. 互换两数
+     *    2. 互换任意九宫内任意两行（列）
+     *    3. 三三行（列）互换（0,3,6起始）
+     * @return
+     */
     public Sudoku changeNumbers() {
         for(int i = 0; i < TIME; ++i) {
             setAB1();

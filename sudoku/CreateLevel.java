@@ -1,7 +1,7 @@
 package sudoku;
 
 /**
- * This is Description
+ * 创建不同难度数独题
  *
  * @author boring
  * @date 2018/04/06
@@ -9,13 +9,28 @@ package sudoku;
 import java.util.Random;
 
 public class CreateLevel {
+    private Sudoku sudoku;
+    /**
+     * 难度等级
+     * 每行显示的数字的个数
+     * 标记相应位置数字是否显示
+     */
     private int level;
     private int[] count;
     private int[][] showArray;
-    private Sudoku sudoku;
+
+    /**
+     * 数独板
+     * 获取随机数
+     * 数组大小
+     */
     private int[][] sudokuArray;
     private Random random;
     private final int LEN = 9;
+
+    /**
+     * 难度等级
+     */
     private final int EASY = 1;
     private final int Medium = 2;
     private final int Hard = 3;
@@ -37,6 +52,46 @@ public class CreateLevel {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0}
         };
+    }
+
+    /**
+     * 设置相应行显示数字个数
+     * 当前位置值为0则表示不显示该位置数字
+     *
+     * @param row
+     * @param num
+     */
+    private void setShowNumber(int row, int num) {
+        int show = 0;
+        int a = random.nextInt(9 - show) + 1;
+        int temp = 0;
+        int i = 0;
+
+        /*
+        a为随机获取的位置，
+        遍历该行，遇到0向后移且temp++，遇到1向后移，
+        当temp==a，设置当前位置为1，标记为显示，i、temp置0，a重新随机
+        重复num次
+         */
+        while(i < LEN) {
+            if (showArray[row][i] == 0) {
+                ++temp;
+            }
+            if (temp == a) {
+                showArray[row][i] = 1;
+                ++show;
+                if (show == num) {
+                    break;
+                } else {
+                    i = 0;
+                    a = random.nextInt(8 - show) + 1;
+                    temp = 0;
+                }
+            } else {
+                ++i;
+            }
+        }
+
     }
 
     /**
@@ -102,6 +157,11 @@ public class CreateLevel {
 
     }
 
+    /**
+     * 根据showArray[][]生成数独游戏
+     *
+     * @return
+     */
     public Sudoku generateGame() {
         switch(level) {
             case EASY:
@@ -129,31 +189,6 @@ public class CreateLevel {
         return sudoku;
     }
 
-    private void setShowNumber(int row, int num) {
-        int show = 0;
-        int a = random.nextInt(9 - show) + 1;
-        int temp = 0;
-        int i = 0;
 
-        while(i < LEN) {
-            if (showArray[row][i] == 0) {
-                ++temp;
-            }
-            if (temp == a) {
-                showArray[row][i] = 1;
-                ++show;
-                if (show == num) {
-                    break;
-                } else {
-                    i = 0;
-                    a = random.nextInt(8 - show) + 1;
-                    temp = 0;
-                }
-            } else {
-                ++i;
-            }
-        }
-
-    }
 }
 

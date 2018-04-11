@@ -1,7 +1,7 @@
 package sudoku;
 
 /**
- * This is Description
+ * 提供数独对象，输出数独板
  *
  * @author boring
  * @date 2018/04/07

@@ -1,7 +1,7 @@
 package sudoku;
 
 /**
- * This is Description
+ * 数独板中点的坐标，由下标表示
  *
  * @author boring
  * @date 2018/04/06

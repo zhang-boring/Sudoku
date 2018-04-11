@@ -1,7 +1,8 @@
 package sudoku;
 
 /**
- * This is Description
+ * 数独类
+ * 设置种子数独
  *
  * @author boring
  * @date 2018/04/06
