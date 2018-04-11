@@ -21,10 +21,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int level = scanner.nextInt();
         CreateLevel createLevel = new CreateLevel(level);
-        Sudoku sudoku = createLevel.generateGame();
-        PrintSudoku.print(sudoku);
-        SolveSudoku solveSudoku = new SolveSudoku(sudoku);
+        SolveSudoku solveSudoku = new SolveSudoku(createLevel.generateGame());
         solveSudoku.solve();
-        PrintSudoku.print(solveSudoku.getSudoku());
     }
 }
