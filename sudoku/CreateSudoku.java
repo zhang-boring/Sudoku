@@ -22,9 +22,9 @@ public class CreateSudoku {
      * 九宫格大小
      * 循环打款次数
      */
-    private int LEN = 9;
-    private int PALACE = 3;
-    private int TIME = 10;
+    private final int LEN = 9;
+    private final int PALACE = 3;
+    private final int TIME = 10;
 
     private int a;
     private int b;

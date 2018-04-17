@@ -9,8 +9,8 @@ package sudoku;
 public class SolveSudoku {
     private Sudoku sudoku;
     private int[][] sudokuArray;
-    private int LEN = 9;
-    private int PALACE = 3;
+    private final int LEN = 9;
+    private final int PALACE = 3;
 
     public Sudoku getSudoku() {
         return this.sudoku;
